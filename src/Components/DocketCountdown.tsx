@@ -1,7 +1,7 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 
-const ELECTION_DATE = new Date('2026-10-16T08:00:00');
+// Election day: 9 October 2026, 8:00 AM East Africa Time
+const ELECTION_DATE = new Date('2026-10-09T08:00:00+03:00');
 
 interface TimeUnit {
   value: number;
@@ -23,7 +23,6 @@ function getTimeLeft() {
 function getMilestone(days: number, hours: number): { label: string; active: boolean } | null {
   if (days === 0 && hours <= 24) return { label: '24 HOURS TO VERDICT', active: true };
   if (days <= 7 && days > 0) return { label: '1 WEEK TO VERDICT', active: true };
-  if (days <= 30 && days > 7) return { label: '30 DAYS TO VERDICT', active: true };
   return null;
 }
 
@@ -137,8 +136,8 @@ export default function DocketCountdown() {
     }
   }, [timeLeft.days, timeLeft.hours, mounted]);
 
-  // Progress bar: from campaign start (Sep 1) to Oct 16
-  const campaignStart = new Date('2026-09-01T00:00:00').getTime();
+  // Progress bar: from campaign start (Sep 1) to Oct 9
+  const campaignStart = new Date('2026-09-01T00:00:00+03:00').getTime();
   const campaignEnd = ELECTION_DATE.getTime();
   const now = mounted ? Date.now() : campaignStart;
   const progressPct = Math.min(100, Math.max(0, ((now - campaignStart) / (campaignEnd - campaignStart)) * 100));
@@ -169,7 +168,7 @@ export default function DocketCountdown() {
             Time Until <span className="text-primary">Verdict Day</span>
           </h2>
           <p className="text-muted-foreground text-base">
-            October 16, 2026 · KSUSA Congress Person Election
+            October 9, 2026 · KSUSA Congress Person Election
           </p>
         </div>
 
@@ -255,7 +254,7 @@ export default function DocketCountdown() {
           </div>
           <div className="flex items-center justify-between mt-1.5">
             <span className="text-xs text-muted-foreground" style={{ fontFamily: '"Courier New", Courier, monospace' }}>Sep 1</span>
-            <span className="text-xs text-muted-foreground" style={{ fontFamily: '"Courier New", Courier, monospace' }}>Oct 16</span>
+            <span className="text-xs text-muted-foreground" style={{ fontFamily: '"Courier New", Courier, monospace' }}>Oct 9</span>
           </div>
         </div>
       </div>
